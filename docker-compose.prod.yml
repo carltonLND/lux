@@ -21,8 +21,6 @@ services:
     stdin_open: true
     depends_on:
       - api
-    # ports:
-    #   - "3000:3000"
     volumes:
       - /app/node_modules
     networks:
@@ -33,12 +31,28 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: on-failure
+    environment:
+      DB_HOST: db
+      PORT: 5000
+      NODE_ENV: production
+      CONNECTION_STRING: "Server=db;Port=8080;Database=database_production;Uid=root;Pwd=${DB_PASSWORD};"
     volumes:
       - /app/node_modules
-    # ports:
-    #   - "5000:5000"
+    depends_on:
+      - db
     networks:
       - bridge-net
+  db:
+    container_name: db
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: database_production
+    networks:
+      - bridge-net
+
 networks:
   bridge-net:
     driver: bridge
