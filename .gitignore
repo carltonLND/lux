@@ -5,6 +5,7 @@
 .pnp.js
 
 # testing
+*.sqlite3
 /coverage
 
 # production
