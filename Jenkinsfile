@@ -3,9 +3,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Build') {
             steps {
-                echo 'Hello World, it triggers, wait now it does'
+                sh "docker-compose -f ./docker-compose.prod.yml build"
             }
         }
     }
