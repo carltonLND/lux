@@ -1,0 +1,34 @@
+version: "3"
+services:
+  proxy:
+    container_name: proxy-server
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - client
+      - api
+    ports:
+      - "3001:3001"
+  client:
+    container_name: frontend-server
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      - bridge-net
+  api:
+    container_name: api-server
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - bridge-net
+networks:
+  bridge-net:
+    driver: bridge
