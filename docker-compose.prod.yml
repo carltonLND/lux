@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   proxy:
+    image: blacknoir.azurecr.io/lux-proxy
     container_name: proxy
     build:
       context: ./nginx
@@ -14,6 +15,7 @@ services:
     networks:
       - bridge-net
   frontend:
+    image: blacknoir.azurecr.io/lux-client
     container_name: frontend
     build:
       context: ./frontend
@@ -27,6 +29,7 @@ services:
       - bridge-net
   api:
     container_name: api
+    image: blacknoir.azurecr.io/lux-api
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -44,7 +47,10 @@ services:
       - bridge-net
   db:
     container_name: db
-    image: mysql
+    image: blacknoir.azurecr.io/lux-db
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:

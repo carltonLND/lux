@@ -5,8 +5,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "docker-compose -f ./docker-compose.prod.yml build"
+                sh " sudo docker-compose -f ./docker-compose.prod.yml build"
+                // sh "docker-compose -f  ./docker-compose.prod.yml push"
             }
         }
+
     }
 }
