@@ -32,7 +32,6 @@ services:
       dockerfile: Dockerfile
     restart: on-failure
     environment:
-      CONNECTION_STRING: "Server=db;Port=8080;Database=database_production;Uid=root;Pwd=${DB_PASSWORD};"
       DB_USERNAME: root
       DB_PASSWORD: ${DB_PASSWORD}
       DB_HOSTNAME: db
