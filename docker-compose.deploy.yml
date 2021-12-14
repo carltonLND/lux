@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   proxy:
-    image: blacknoir.azurecr.io/lux_proxy
+    image: blacknoir.azurecr.io/lux_proxy:v1
     container_name: proxy
     depends_on:
       - frontend
@@ -12,7 +12,7 @@ services:
     networks:
       - bridge-net
   frontend:
-    image: blacknoir.azurecr.io/lux_frontend
+    image: blacknoir.azurecr.io/lux_frontend:v1
     container_name: frontend
     stdin_open: true
     depends_on:
@@ -22,7 +22,7 @@ services:
     networks:
       - bridge-net
   api:
-    image: blacknoir.azurecr.io/lux_frontend
+    image: blacknoir.azurecr.io/lux_api:v1
     container_name: api
     restart: on-failure
     environment:
