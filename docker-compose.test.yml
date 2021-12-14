@@ -1,21 +1,19 @@
 version: "3.3"
 services:
   proxy:
-    image: blacknoir.azurecr.io/lux-proxy
     container_name: proxy
     build:
       context: ./nginx
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     depends_on:
       - frontend
       - api
     restart: always
     ports:
-      - "80:80"
+      - "3001:3001"
     networks:
       - bridge-net
   frontend:
-    image: blacknoir.azurecr.io/lux-client
     container_name: frontend
     build:
       context: ./frontend
@@ -29,16 +27,17 @@ services:
       - bridge-net
   api:
     container_name: api
-    image: blacknoir.azurecr.io/lux-api
     build:
       context: ./backend
       dockerfile: Dockerfile
     restart: on-failure
     environment:
-      DB_HOST: db
-      PORT: 5000
-      NODE_ENV: production
       CONNECTION_STRING: "Server=db;Port=8080;Database=database_production;Uid=root;Pwd=${DB_PASSWORD};"
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOSTNAME: db
+      DB_NAME: database_production
+      NODE_ENV: production
     volumes:
       - /app/node_modules
     depends_on:
@@ -46,15 +45,12 @@ services:
     networks:
       - bridge-net
   db:
+    image: mysql
     container_name: db
-    image: blacknoir.azurecr.io/lux-db
-    build:
-      context: ./db
-      dockerfile: Dockerfile
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: database_production
     networks:
       - bridge-net

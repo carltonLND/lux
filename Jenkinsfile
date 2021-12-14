@@ -3,10 +3,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Docker Build and Push') {
             steps {
-                echo 'Hello World, it triggers, wait now it does'
+                // sh "docker-compose -f ./docker-compose.prod.yml build"
+                sh "docker-compose -f  ./docker-compose.prod.yml push"
             }
         }
+
     }
 }
