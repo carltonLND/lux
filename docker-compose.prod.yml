@@ -39,8 +39,6 @@ services:
       NODE_ENV: production
     volumes:
       - /app/node_modules
-    depends_on:
-      - db
     networks:
       - bridge-net
 networks:
