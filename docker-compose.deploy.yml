@@ -1,10 +1,8 @@
 version: "3.3"
 services:
   proxy:
+    image: blacknoir.azurecr.io/lux_proxy
     container_name: proxy
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
     depends_on:
       - frontend
       - api
@@ -14,10 +12,8 @@ services:
     networks:
       - bridge-net
   frontend:
+    image: blacknoir.azurecr.io/lux_frontend
     container_name: frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
     stdin_open: true
     depends_on:
       - api
@@ -26,10 +22,8 @@ services:
     networks:
       - bridge-net
   api:
+    image: blacknoir.azurecr.io/lux_frontend
     container_name: api
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
     restart: on-failure
     environment:
       DB_USERNAME: root
