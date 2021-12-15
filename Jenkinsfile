@@ -31,7 +31,7 @@ pipeline {
                     sh 'az account set -s ${subscription_id}'
                     sh 'az acr login --name blacknoir'
                     sh "docker push blacknoir.azurecr.io/lux_frontend"
-                    sh "docker push blacknoir.azurecr.io/lux_api:"
+                    sh "docker push blacknoir.azurecr.io/lux_api"
                     sh "docker push blacknoir.azurecr.io/lux_proxy"
                     sh "docker push blacknoir.azurecr.io/lux_api:1"
                     sh "docker push blacknoir.azurecr.io/lux_frontend:1"
