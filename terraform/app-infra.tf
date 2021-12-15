@@ -45,21 +45,24 @@ provider "azurerm" {
   tenant_id       = var.tenant_id
 }
 
-data "azurerm_container_registry" "registry" {
-  name                = "blacknoir"
-  resource_group_name = "rg-dev-uks"
-}
 
 resource "azurerm_resource_group" "rg" {
   name     = "rg-webapps-${var.location_simple}"
   location = "UK South"
 }
 
+resource "azurerm_container_registry" "acr" {
+  name                = ""
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"
+  admin_enabled       = false
+}
+
 resource "azurerm_user_assigned_identity" "user" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-
-  name = "acr-pull"
+  name = "acr-pull-${var.app_name}"
 }
 
 resource "azurerm_role_assignment" "role_assignment" {
@@ -94,7 +97,7 @@ resource "azurerm_app_service" "apps" {
   }
 
   identity {
-    type         = "SystemAssigned, UserAssigned"
+    type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.user.id]
   }
 
