@@ -3,6 +3,8 @@
 A social media web app based on facebook and twitter built using the React, Express and NodeJS.
 This project leverages Jenkins, Terraform, Docker and Azure for it's CI/CD pipeline.
 
+<!-- Link to Website -->
+
 ## Table of Contents
 
 - [General info](#general-info)
@@ -22,17 +24,15 @@ Project is created with:
 - React
 - NodeJS
 - Express
+- Nginx
+- MySQL
 - Jenkins
 - Terraform
-- Ansible
+<!-- - Ansible -->
 
 <!-- ## To Do
 
-- Create tfplan for dev enviroment
-- Create simple UI/UX design
-- Create Rest API
-  - Create a call to fetch to-do's
-  - Create a call to add a to-do to the database
-  - Create a call to update a to-do
-  - Create a call to remove a to-do
-- Add user authentication -->
+- Add images from design doc
+- Add link to website
+
+ -->
