@@ -27,15 +27,21 @@ variable "app_name" {
   type        = string
 }
 
+
+variable "registry_name" {
+  type = string
+}
+
 variable "registry_url" {
   type = string
 }
 
+
 locals {
-  registry_details = {
-    DOCKER_REGISTRY_SERVER_URL = var.registry_url
-    # DOCKER_REGISTRY_SERVER_USERNAME = "ACR01"
-    # DOCKER_REGISTRY_SERVER_PASSWORD = "**************"
+  common_tags = {
+    project    = "lux"
+    type       = "webapps"
+    depertment = "groupwork"
   }
 }
 
@@ -49,24 +55,30 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg" {
   name     = "rg-webapps-${var.location_simple}"
   location = "UK South"
+
+  tags = local.common_tags
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = ""
+  name                = var.registry_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Basic"
   admin_enabled       = false
+
+  tags = local.common_tags
 }
 
 resource "azurerm_user_assigned_identity" "user" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  name = "acr-pull-${var.app_name}"
+  name                = "acr-pull-${var.app_name}"
+
+  tags = local.common_tags
 }
 
 resource "azurerm_role_assignment" "role_assignment" {
-  scope                = data.azurerm_container_registry.registry.id
+  scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_user_assigned_identity.user.principal_id
 }
@@ -82,6 +94,8 @@ resource "azurerm_app_service_plan" "asp" {
     tier = "Basic"
     size = "B2"
   }
+
+  tags = local.common_tags
 }
 
 resource "azurerm_app_service" "apps" {
@@ -111,21 +125,7 @@ resource "azurerm_app_service" "apps" {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL"          = var.registry_url
   }
+
+  tags = local.common_tags
 }
 
-# resource "azurerm_app_service_slot" "apps_s" {
-#   name                    = "appsstage-${var.app_name}-${var.location_simple}"
-#   app_service_name        = azurerm_app_service.apps.name
-#   location                = azurerm_resource_group.rg.location
-#   resource_group_name     = azurerm_resource_group.rg.name
-#   app_service_plan_id     = azurerm_app_service_plan.asp.id
-#   https_only              = true
-#   client_affinity_enabled = true
-#   site_config {
-#     always_on         = "true"
-#     health_check_path = "/"
-#   }
-
-
-#   app_settings = local.registry_details
-# }
