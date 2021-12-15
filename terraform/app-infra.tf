@@ -39,7 +39,7 @@ variable "registry_url" {
 
 locals {
   common_tags = {
-    project    = "lux"
+    project    = var.app_name
     type       = "webapps"
     depertment = "groupwork"
   }
