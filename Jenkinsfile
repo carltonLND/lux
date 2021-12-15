@@ -3,14 +3,6 @@ pipeline {
     agent any
 
     stages {
-        stage("checkout scm"){
-            steps{
-                git branch: 'main',
-                url: 'https://github.com/Delta-a-Sierra/lux.git'
-            }
-     
-            
-        }
         stage('Docker Build') {
             steps {
                 sh "docker image prune -f"
