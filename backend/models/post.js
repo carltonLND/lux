@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       // foreign key
       userID: DataTypes.INTEGER,
-      content: { type: DataTypes.STRING, allowNull: false },
+      content: { type: DataTypes.TEXT, allowNull: false },
       likeCount: { type: DataTypes.INTEGER, defaultValue: 0 },
       commentCount: { type: DataTypes.INTEGER, defaultValue: 0 },
       datePosted: { type: DataTypes.DATE, allowNull: false },
@@ -28,4 +28,3 @@ module.exports = (sequelize, DataTypes) => {
   );
   return Post;
 };
-
