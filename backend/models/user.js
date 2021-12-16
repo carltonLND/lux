@@ -1,6 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -14,48 +13,24 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      private: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: 0,
-      },
-      followerCount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      followingCount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      location: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      firstName: { type: DataTypes.STRING, allowNull: false },
+      lastName: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING, allowNull: false, unique: true },
+      password: { type: DataTypes.STRING, allowNull: false },
+      private: { type: DataTypes.BOOLEAN, defaultValue: 0 },
+      followerCount: { type: DataTypes.INTEGER, defaultValue: 0 },
+      followingCount: { type: DataTypes.INTEGER, defaultValue: 0 },
+      location: { type: DataTypes.STRING, allowNull: false },
       // add default url string
-      pictureUrl: {
-        type: DataTypes.STRING,
-      },
+      pictureUrl: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "User",
+      timestamps: false,
+      createdAt: true,
     }
   );
   return User;
 };
+
