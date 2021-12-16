@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       userID: DataTypes.INTEGER,
       gender: DataTypes.STRING,
       dateOfBirth: DataTypes.STRING,
-      dateJoined: DataTypes.DATE,
+      dateJoined: { type: DataTypes.DATE, allowNull: false },
       phone: DataTypes.INTEGER,
       twitter: DataTypes.STRING,
       facebook: DataTypes.STRING,
@@ -31,4 +31,3 @@ module.exports = (sequelize, DataTypes) => {
   );
   return Profile;
 };
-
