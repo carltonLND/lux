@@ -1,10 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 // /users
 router.get("/", function (req, res, next) {
   res.status(405).json({
-    message: "Returns an array of all users",
+    message: "Returns an array of all/queried users",
     warning: "Endpoint not yet configured",
   });
 });
