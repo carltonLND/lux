@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const db = require("./models");
+const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
@@ -31,6 +32,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// set cors for specific origin
+app.use(cors());
 
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
