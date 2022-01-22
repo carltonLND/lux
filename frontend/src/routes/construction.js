@@ -12,7 +12,7 @@ const Construction = () => {
           alt="building under construction"
         />
         <h1 className="text-white text-5xl sm:text-6xl text-center font-bold self-center sm:justify-self-end">
-          under Construction
+          Under Construction
         </h1>
       </div>
     </div>
