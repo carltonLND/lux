@@ -5,9 +5,9 @@ import {
   Button,
   OutlinedButton,
   FloatLink,
-} from "../components";
+} from "../../components";
 
-const Signup = () => {
+const SignupPresentation = ({ formik }) => {
   return (
     <div className="flex">
       <div className="p-10 h-screen w-screen flex flex-col items-center space-y-10">
@@ -19,15 +19,43 @@ const Signup = () => {
             Sign Up To Lux
           </h1>
           <form
-            onSubmit={() => {}}
+            onSubmit={formik.handleSubmit}
             className="w-full space-y-4 flex flex-col items-center pb-5 sm:w-2/5"
           >
-            <EmailInput />
-            <PasswordInput />
-            <PasswordInput name="" placeholder="Confirm Password" />
+            <EmailInput
+              name="email"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              errorMsg={formik.errors.email}
+              onBlur={formik.handleBlur}
+              touched={formik.touched.email}
+            />
+            <PasswordInput
+              name="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              errorMsg={formik.errors.password}
+              placeholder="enter password"
+              onBlur={formik.handleBlur}
+              touched={formik.touched.password}
+            />
+            <PasswordInput
+              name="confirmPassword"
+              onChange={formik.handleChange}
+              value={formik.values.confirmPassword}
+              errorMsg={formik.errors.confirmPassword}
+              placeholder="confirm password"
+              onBlur={formik.handleBlur}
+              touched={formik.touched.confirmPassword}
+            />
             <FloatLink text="Forgot your password?" link="#" />
+            <Button
+              type="submit"
+              color="primary"
+              text="Sign Up"
+              onClick={() => {}}
+            />
           </form>
-          <Button color="primary" text="Sign Up" onClick={() => {}} />
         </div>
         <div className="h-full grow flex flex-col justify-end sm:pb-10 sm:hidden">
           <FloatLink text="Already have an account?" link="#" />
@@ -46,4 +74,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPresentation;

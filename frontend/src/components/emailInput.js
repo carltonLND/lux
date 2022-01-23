@@ -1,10 +1,6 @@
 import { MdEmail } from "react-icons/md";
-import { useState } from "react";
 
-const EmailInput = ({ errorMsg }) => {
-  const [value, setValue] = useState("");
-  const [errorState, setErrorState] = useState(false);
-
+const EmailInput = ({ name, value, onChange, errorMsg, onBlur, touched }) => {
   return (
     <div className="w-full">
       <label
@@ -15,15 +11,16 @@ const EmailInput = ({ errorMsg }) => {
         <input
           className="bg-gray-200 w-full outline-none"
           type="text"
-          name="email"
+          name={name}
           placeholder="Enter Email"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={onChange}
+          onBlur={onBlur}
         />
       </label>
       <p
         className={`${
-          errorState ? "inline" : "hidden"
+          touched && errorMsg ? "inline" : "hidden"
         } mt-1 ml-5 text-red-500 font-nunito tracking-wider text-md`}
       >
         {errorMsg}
