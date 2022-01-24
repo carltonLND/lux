@@ -1,4 +1,4 @@
-import logo from "../util/images/Logo.svg";
+import logo from "../../util/images/Logo.svg";
 
 const Logo = ({ width }) => {
   return (

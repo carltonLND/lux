@@ -6,6 +6,7 @@ import {
   OutlinedButton,
   FloatLink,
 } from "../../components";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 const SignInPresentation = ({ formik }) => {
   return (
@@ -18,6 +19,10 @@ const SignInPresentation = ({ formik }) => {
           <h1 className="font-open font-extrabold text-primary text-3xl text-center">
             Sign In To Lux
           </h1>
+          <div className="flex space-x-5">
+            <FaFacebook size="3em" color="#084887" />
+            <FaGoogle size="3em" color="#084887" />
+          </div>
           <form
             onSubmit={formik.handleSubmit}
             className="w-full space-y-4 flex flex-col items-center pb-5 sm:w-2/5"

@@ -1,4 +1,4 @@
-import logo from "../util/images/LogoCirc.svg";
+import logo from "../../util/images/LogoCirc.svg";
 
 const LogoCirc = ({ width }) => {
   return (
