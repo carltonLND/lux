@@ -11,7 +11,7 @@ const Construction = () => {
           src={ConstructionImg}
           alt="building under construction"
         />
-        <h1 className="text-white text-5xl sm:text-6xl text-center font-bold self-center sm:justify-self-end">
+        <h1 className="text-white text-5xl sm:text-6xl text-center font-open font-bold self-center sm:justify-self-end">
           Under Construction
         </h1>
       </div>
