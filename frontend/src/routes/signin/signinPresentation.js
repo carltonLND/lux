@@ -150,7 +150,7 @@ const SignInPresentation = ({ formik, LoadSignup }) => {
               onBlur={formik.handleBlur}
               touched={formik.touched.password}
             />
-            <FloatLink text="Forgot your password?" link="#" />
+            <FloatLink text="Forgot your password?" target="_blank" link="#" />
             <div className="pt-10">
               <Button
                 type="submit"

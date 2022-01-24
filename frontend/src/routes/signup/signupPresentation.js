@@ -10,8 +10,14 @@ import { useMediaQuery } from "../../hooks";
 import { motion } from "framer-motion";
 
 let containerMotion = {
-  slid: {},
-  base: {},
+  slid: {
+    x: 0,
+    y: 0,
+  },
+  base: {
+    x: 0,
+    y: 0,
+  },
 };
 
 let contentMotion = {

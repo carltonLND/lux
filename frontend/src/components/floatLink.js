@@ -29,9 +29,9 @@ const textVariant = {
   },
 };
 
-const FloatLink = ({ text, link }) => {
+const FloatLink = ({ text, link, target }) => {
   return (
-    <Link to={`${link || "#"}`}>
+    <Link target={target || ""} to={`${link || "#"}`}>
       <motion.div
         initial="initial"
         whileHover="hover"
