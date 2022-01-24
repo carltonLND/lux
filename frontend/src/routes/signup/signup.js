@@ -1,10 +1,13 @@
 import SignupPresentation from "./signupPresentation";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
 
 const Signup = () => {
+  const Navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,7 +27,11 @@ const Signup = () => {
     },
   });
 
-  return <SignupPresentation formik={formik} />;
+  const LoadSignin = () => {
+    Navigate("/signin");
+  };
+
+  return <SignupPresentation formik={formik} LoadSignin={LoadSignin} />;
 };
 
 export default Signup;

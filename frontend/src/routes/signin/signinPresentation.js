@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { useMediaQuery } from "../../hooks";
 import {
   LogoCirc,
   EmailInput,
@@ -8,14 +10,115 @@ import {
 } from "../../components";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
-const SignInPresentation = ({ formik }) => {
+let containerMotion = {
+  slid: {},
+  base: {},
+};
+
+let contentMotion = {
+  slid: {
+    opacity: 0,
+    x: "-100vw",
+  },
+  base: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.1,
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+  exit: {
+    x: "100vw",
+    opacity: 0,
+  },
+  transition: {
+    duration: 0.3,
+    ease: "easeInOut",
+  },
+};
+
+const SignInPresentation = ({ formik, LoadSignup }) => {
+  const isDesktop = useMediaQuery("(min-width: 640px)");
+
+  if (isDesktop) {
+    containerMotion = {
+      slid: {
+        x: "-30vw",
+        transition: {
+          duration: 0.3,
+          ease: "easeOut",
+        },
+      },
+      base: {
+        x: 0,
+        transition: {
+          delay: 0.2,
+          duration: 0.6,
+          ease: "easeInOut",
+        },
+      },
+    };
+
+    contentMotion = {
+      slid: {
+        opacity: 0,
+        y: "-30vh",
+      },
+      base: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.4,
+          ease: "easeOut",
+        },
+      },
+      exit: {
+        opacity: 0,
+        y: "40vh",
+      },
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    };
+  }
+
   return (
     <div className="flex">
+      <motion.div
+        variants={containerMotion}
+        initial="slid"
+        animate="base"
+        exit="slid"
+        className="bg-primary flex-col items-center justify-center space-y-10 p-5 hidden sm:flex sm:w-2/5"
+      >
+        <h1 className="font-open font-extrabold text-white text-3xl text-center">
+          Hello, Friend!
+        </h1>
+        <p className="text-white font-nunito w-2/3 text-center text-xl font-thin tracking-wider">
+          Enter your personal details to get started on your journey with us.
+        </p>
+        <OutlinedButton color="white" text="Sign Up" onClick={LoadSignup} />
+      </motion.div>
       <div className="p-10 h-screen w-screen flex flex-col items-center space-y-10">
-        <div className="sm:self-start">
+        <motion.div
+          variants={containerMotion}
+          initial="slid"
+          animate="base"
+          exit="slid"
+          className="sm:self-start"
+        >
           <LogoCirc align="start" />
-        </div>
-        <div className="w-full flex flex-col items-center sm:h-2/3 sm:justify-center space-y-10">
+        </motion.div>
+        <motion.div
+          variants={contentMotion}
+          initial="slid"
+          animate="base"
+          exit="exit"
+          className="w-full flex flex-col items-center sm:h-2/3 sm:justify-center space-y-10"
+        >
           <h1 className="font-open font-extrabold text-primary text-3xl text-center">
             Sign In To Lux
           </h1>
@@ -54,19 +157,10 @@ const SignInPresentation = ({ formik }) => {
               />
             </div>
           </form>
-        </div>
+        </motion.div>
         <div className="h-full grow flex flex-col justify-end sm:pb-10 sm:hidden">
-          <FloatLink text="Already have an account?" link="#" />
+          <FloatLink text="Don't have an account?" link="/signup" />
         </div>
-      </div>
-      <div className="bg-primary flex-col items-center justify-center space-y-10 p-5 hidden sm:flex sm:w-2/5">
-        <h1 className="font-open font-extrabold text-white text-3xl text-center">
-          Hello, Friend!
-        </h1>
-        <p className="text-white font-nunito w-2/3 text-center text-xl font-thin tracking-wider">
-          Enter your personal details to get started on your journey with us.
-        </p>
-        <OutlinedButton color="white" text="Sign Up" onClick={() => {}} />
       </div>
     </div>
   );
