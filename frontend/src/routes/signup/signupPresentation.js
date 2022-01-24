@@ -16,21 +16,19 @@ let containerMotion = {
 
 let contentMotion = {
   slid: {
-    opacity: 0,
     x: "-100vw",
   },
   base: {
-    opacity: 1,
     x: 0,
     transition: {
-      delay: 0.1,
+      type: "spring",
       duration: 0.4,
-      ease: "easeInOut",
+      stiffness: 45,
+      bounce: 0,
     },
   },
   exit: {
     x: "100vw",
-    opacity: 0,
   },
   transition: {
     duration: 0.3,
@@ -53,7 +51,6 @@ const SignupPresentation = ({ formik, LoadSignin }) => {
       base: {
         x: 0,
         transition: {
-          delay: 0.2,
           duration: 0.6,
           ease: "easeInOut",
         },
@@ -62,24 +59,30 @@ const SignupPresentation = ({ formik, LoadSignin }) => {
 
     contentMotion = {
       slid: {
-        opacity: 0,
-        y: "-30vh",
+        x: "-100vw",
+        transition: {
+          type: "spring",
+          duration: 0.4,
+          stiffness: 45,
+          bounce: 0,
+        },
       },
       base: {
-        opacity: 1,
         y: 0,
+        x: 0,
         transition: {
+          type: "spring",
           duration: 0.4,
-          ease: "easeOut",
+          stiffness: 45,
+          bounce: 0,
         },
       },
       exit: {
-        opacity: 0,
-        y: "40vh",
-      },
-      transition: {
-        duration: 0.3,
-        ease: "easeIn",
+        x: "-100vw",
+        transition: {
+          duration: 0.3,
+          ease: "easeIn",
+        },
       },
     };
   }
