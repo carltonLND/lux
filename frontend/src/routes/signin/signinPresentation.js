@@ -7,7 +7,7 @@ import {
   FloatLink,
 } from "../../components";
 
-const SignupPresentation = ({ formik }) => {
+const SignInPresentation = ({ formik }) => {
   return (
     <div className="flex">
       <div className="p-10 h-screen w-screen flex flex-col items-center space-y-10">
@@ -16,7 +16,7 @@ const SignupPresentation = ({ formik }) => {
         </div>
         <div className="w-full flex flex-col items-center sm:h-2/3 sm:justify-center space-y-10">
           <h1 className="font-open font-extrabold text-primary text-3xl text-center">
-            Sign Up To Lux
+            Sign In To Lux
           </h1>
           <form
             onSubmit={formik.handleSubmit}
@@ -39,22 +39,15 @@ const SignupPresentation = ({ formik }) => {
               onBlur={formik.handleBlur}
               touched={formik.touched.password}
             />
-            <PasswordInput
-              name="confirmPassword"
-              onChange={formik.handleChange}
-              value={formik.values.confirmPassword}
-              errorMsg={formik.errors.confirmPassword}
-              placeholder="confirm password"
-              onBlur={formik.handleBlur}
-              touched={formik.touched.confirmPassword}
-            />
             <FloatLink text="Forgot your password?" link="#" />
-            <Button
-              type="submit"
-              color="primary"
-              text="Sign Up"
-              onClick={() => {}}
-            />
+            <div className="pt-10">
+              <Button
+                type="submit"
+                color="primary"
+                text="Sign In"
+                onClick={() => {}}
+              />
+            </div>
           </form>
         </div>
         <div className="h-full grow flex flex-col justify-end sm:pb-10 sm:hidden">
@@ -68,10 +61,10 @@ const SignupPresentation = ({ formik }) => {
         <p className="text-white font-nunito w-2/3 text-center text-xl font-thin tracking-wider">
           Enter your personal details to get started on your journey with us.
         </p>
-        <OutlinedButton color="white" text="Sign In" onClick={() => {}} />
+        <OutlinedButton color="white" text="Sign Up" onClick={() => {}} />
       </div>
     </div>
   );
 };
 
-export default SignupPresentation;
+export default SignInPresentation;

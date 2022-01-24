@@ -1,10 +1,10 @@
-import SignupPresentation from "./signinPresentation";
+import SigninPresentation from "./signinPresentation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
 
-const Signup = () => {
+const SignIn = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,7 +20,7 @@ const Signup = () => {
     },
   });
 
-  return <SignupPresentation formik={formik} />;
+  return <SigninPresentation formik={formik} />;
 };
 
-export default Signup;
+export default SignIn;

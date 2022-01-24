@@ -48,13 +48,14 @@ const SignupPresentation = ({ formik }) => {
               onBlur={formik.handleBlur}
               touched={formik.touched.confirmPassword}
             />
-            <FloatLink text="Forgot your password?" link="#" />
-            <Button
-              type="submit"
-              color="primary"
-              text="Sign Up"
-              onClick={() => {}}
-            />
+            <div className="pt-10">
+              <Button
+                type="submit"
+                color="primary"
+                text="Sign Up"
+                onClick={() => {}}
+              />
+            </div>
           </form>
         </div>
         <div className="h-full grow flex flex-col justify-end sm:pb-10 sm:hidden">
