@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 const Ellipse = ({ active, SetActiveSlide }) => {
-  const [state, setState] = useState(active);
-
   return (
     <div
       onClick={SetActiveSlide}
