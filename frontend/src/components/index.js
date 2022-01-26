@@ -10,6 +10,7 @@ export { default as OutlinedButton } from "./buttons/outlineButton";
 export { default as EmailInput } from "./inputs/emailInput";
 export { default as PasswordInput } from "./inputs/passwordInput";
 export { default as TextInput } from "./inputs/textInput";
+export { default as Dropdown } from "./inputs/dropdown";
 
 // Logos
 export { default as Logo } from "./logos/logo";
