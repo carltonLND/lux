@@ -1,12 +1,4 @@
-const TextInput = ({
-  errorMsg,
-  name,
-  value,
-  onChange,
-  placeholder,
-  onBlur,
-  touched,
-}) => {
+const TextInput = ({ errorMsg, name, value, onChange, placeholder }) => {
   return (
     <div className="w-full">
       <label
@@ -22,12 +14,11 @@ const TextInput = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
         />
       </label>
       <p
         className={`${
-          touched && errorMsg ? "inline" : "hidden"
+          errorMsg ? "inline" : "hidden"
         } mt-1 ml-5 text-red-500 font-nunito tracking-wider text-md`}
       >
         {errorMsg}

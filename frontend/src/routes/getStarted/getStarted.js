@@ -1,20 +1,9 @@
 import { useState } from "react";
-import {
-  Logo,
-  GetStartedContainer,
-  TextInput,
-  Button,
-  SliderEllipses,
-  Dropdown,
-} from "../../components";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-YupPassword(Yup);
+import GetStartedPresentation from "./getStartedPresentation";
 
 const GetStarted = () => {
   const [slideCount, setSlideCount] = useState(3);
-  const [currentSlide, setCurrentSlide] = useState(2);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -39,7 +28,7 @@ const GetStarted = () => {
   };
 
   const GoNextSlide = () => {
-    if (currentSlide + 1 == slideCount) {
+    if (currentSlide + 1 === slideCount) {
       SubmitForm();
       return;
     }
@@ -109,97 +98,18 @@ const GetStarted = () => {
   }
 
   return (
-    <div className="w-screen h-screen overscroll-none bg-primary flex flex-col items-center p-10 space-y-10">
-      <div>
-        <Logo width="10" />
-      </div>
-      <h1 className="text-white text-center text-3xl font-open font-extrabold">
-        Get Started
-      </h1>
-
-      {currentSlide == 0 && (
-        <GetStartedContainer title="Name">
-          <TextInput
-            name="firstName"
-            placeholder="First Name"
-            onChange={handleChange}
-            value={form.firstName}
-            errorMsg={form.firstName}
-          />
-
-          <TextInput
-            name="lastName"
-            placeholder="Last Name"
-            onChange={handleChange}
-            value={form.lastName}
-            errorMsg={form.lastName}
-          />
-        </GetStartedContainer>
-      )}
-
-      {currentSlide == 1 && (
-        <GetStartedContainer title="Age">
-          <div className="flex w-full space-x-2">
-            <Dropdown
-              name="day"
-              placeholder="Day"
-              items={days}
-              SelectDropdownItem={SelectDropdownItem}
-              value={form.day}
-              errorMsg={form.day}
-            />
-            <Dropdown
-              name="month"
-              placeholder="Month"
-              items={months}
-              SelectDropdownItem={SelectDropdownItem}
-              value={form.month}
-              errorMsg={form.month}
-            />
-          </div>
-          <Dropdown
-            name="year"
-            placeholder="Year"
-            items={years}
-            SelectDropdownItem={SelectDropdownItem}
-            value={form.year}
-            errorMsg={form.year}
-          />
-        </GetStartedContainer>
-      )}
-
-      {currentSlide == 2 && (
-        <GetStartedContainer title="Location">
-          <Dropdown
-            name="country"
-            placeholder="Country"
-            items={months}
-            SelectDropdownItem={SelectDropdownItem}
-            value={form.country}
-            errorMsg={form.country}
-          />
-          <Dropdown
-            name="city"
-            placeholder="City"
-            items={months}
-            SelectDropdownItem={SelectDropdownItem}
-            value={form.city}
-            errorMsg={form.city}
-          />
-        </GetStartedContainer>
-      )}
-      <SliderEllipses
-        count={slideCount}
-        current={currentSlide}
-        SetActiveSlide={SetActiveSlide}
-      />
-      <Button
-        text="Next"
-        color="secondary"
-        type="border"
-        onClick={GoNextSlide}
-      />
-    </div>
+    <GetStartedPresentation
+      currentSlide={currentSlide}
+      form={form}
+      handleChange={handleChange}
+      days={days}
+      months={months}
+      years={years}
+      SelectDropdownItem={SelectDropdownItem}
+      slideCount={slideCount}
+      SetActiveSlide={SetActiveSlide}
+      GoNextSlide={GoNextSlide}
+    />
   );
 };
 

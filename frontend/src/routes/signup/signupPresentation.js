@@ -28,8 +28,8 @@ let contentMotion = {
     x: 0,
     transition: {
       type: "spring",
-      duration: 0.4,
-      stiffness: 45,
+      duration: 0.1,
+      stiffness: 30,
       bounce: 0,
     },
   },
@@ -37,7 +37,7 @@ let contentMotion = {
     x: "100vw",
   },
   transition: {
-    duration: 0.3,
+    duration: 0.5,
     ease: "easeInOut",
   },
 };
@@ -57,29 +57,27 @@ const SignupPresentation = ({ formik, LoadSignin }) => {
       base: {
         x: 0,
         transition: {
-          duration: 0.6,
-          ease: "easeInOut",
+          type: "spring",
+          duration: 0.1,
+          stiffness: 30,
+          bounce: 0,
         },
       },
     };
 
     contentMotion = {
       slid: {
+        opacity: 0,
         x: "-100vw",
-        transition: {
-          type: "spring",
-          duration: 0.4,
-          stiffness: 45,
-          bounce: 0,
-        },
       },
       base: {
+        opacity: 1,
         y: 0,
         x: 0,
         transition: {
           type: "spring",
-          duration: 0.4,
-          stiffness: 45,
+          duration: 0.1,
+          stiffness: 30,
           bounce: 0,
         },
       },

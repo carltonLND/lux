@@ -7,8 +7,6 @@ const Dropdown = ({
   value,
   onChange,
   placeholder,
-  onBlur,
-  touched,
   items,
   SelectDropdownItem,
 }) => {
@@ -43,7 +41,6 @@ const Dropdown = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
           readOnly
         />
         {active ? <IoIosArrowUp /> : <IoIosArrowDown />}
@@ -67,7 +64,7 @@ const Dropdown = ({
 
       <p
         className={`${
-          touched && errorMsg ? "inline" : "hidden"
+          errorMsg ? "inline" : "hidden"
         } mt-1 ml-5 text-red-500 font-nunito tracking-wider text-md`}
       >
         {errorMsg}

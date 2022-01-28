@@ -27,7 +27,7 @@ const SliderEllipses = ({ count, current, SetActiveSlide }) => {
   const ChangeActiveEllipse = (index) => {
     setEllipses([
       ...Ellipses.map((ellipse) => {
-        if (ellipse.index == index) {
+        if (ellipse.index === index) {
           return { ...ellipse, state: true };
         }
         return { ...ellipse, state: false };
