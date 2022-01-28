@@ -28,13 +28,13 @@ const Dropdown = ({
   return (
     <div className="w-full relative" onMouseLeave={CloseDropdown}>
       <label
+        onClick={ToggleDropdown}
         htmlFor="email"
         className={` flex items-center space-x-3 bg-gray-200 px-4 py-3 ${
           active ? "rounded-tl-lg rounded-tr-lg" : "rounded-full"
         } w-full text-xl`}
       >
         <input
-          onClick={ToggleDropdown}
           className="bg-gray-200 w-full outline-none cursor-pointer"
           type="text"
           name={name}

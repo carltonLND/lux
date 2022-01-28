@@ -1,9 +1,10 @@
 import { useState } from "react";
 import GetStartedPresentation from "./getStartedPresentation";
+import { DateTime } from "luxon";
 
 const GetStarted = () => {
   const [slideCount, setSlideCount] = useState(3);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(2);
 
   const [form, setForm] = useState({
     firstName: "",
@@ -14,6 +15,26 @@ const GetStarted = () => {
     country: "",
     city: "",
   });
+
+  const [formError, setFormError] = useState({
+    firstName: "",
+    lastName: "",
+    day: "",
+    month: "",
+    year: "",
+    country: "",
+    city: "",
+    dateString: "",
+  });
+
+  const CheckIfError = (fields, tempErrors) => {
+    fields.forEach((field) => {
+      if (tempErrors[field]) {
+        return false;
+      }
+      return true;
+    });
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -37,6 +58,114 @@ const GetStarted = () => {
 
   const SubmitForm = () => {
     setCurrentSlide(0);
+  };
+  const CheckForRequired = (fields) => {
+    let errorFound = false;
+    let tempErrors = {
+      firstName: "",
+      lastName: "",
+      day: "",
+      month: "",
+      year: "",
+      country: "",
+      city: "",
+      dateString: "",
+    };
+    fields.forEach((field) => {
+      if (form[field] === "") {
+        console.log(`error found: ${field}`);
+        tempErrors = { ...tempErrors, [field]: "Required" };
+        errorFound = true;
+      }
+    });
+    setFormError(tempErrors);
+    return errorFound;
+  };
+
+  const CheckDateString = () => {
+    const emptyForm = {
+      firstName: "",
+      lastName: "",
+      day: "",
+      month: "",
+      year: "",
+      country: "",
+      city: "",
+      dateString: "",
+    };
+    const dateString = `${form.month} ${form.day} ${form.year}`;
+
+    const invalid = DateTime.fromFormat(dateString, "LLLL dd yyyy").invalid;
+    if (invalid) {
+      setFormError({ ...emptyForm, dateString: "Please enter a valid date" });
+      return true;
+    }
+    return false;
+  };
+
+  const CheckIfEighteen = () => {
+    const emptyForm = {
+      firstName: "",
+      lastName: "",
+      day: "",
+      month: "",
+      year: "",
+      country: "",
+      city: "",
+      dateString: "",
+    };
+    const dateString = `${form.month} ${form.day} ${form.year}`;
+    const dob = DateTime.fromFormat(dateString, "LLLL dd yyyy");
+    const today = DateTime.now();
+    if (today.minus({ years: 18 }) < dob) {
+      setFormError({ ...emptyForm, dateString: "Must be over 18" });
+      return true;
+    }
+    return false;
+  };
+
+  const ValidateDate = async () => {
+    setFormError({
+      firstName: "",
+      lastName: "",
+      day: "",
+      month: "",
+      year: "",
+      country: "",
+      city: "",
+      dateString: "",
+    });
+    console.log("Form reset");
+    const fields = ["day", "month", "year"];
+    if (CheckForRequired(fields)) {
+      return;
+    }
+    if (CheckDateString()) {
+      return;
+    }
+    if (CheckIfEighteen()) {
+      return;
+    }
+    GoNextSlide();
+    return;
+  };
+
+  const ValidateName = () => {
+    const fields = ["firstName", "lastName"];
+    if (CheckForRequired(fields)) {
+      return;
+    }
+    GoNextSlide();
+    return;
+  };
+
+  const ValidateLocation = () => {
+    const fields = ["country", "city"];
+    if (CheckForRequired(fields)) {
+      return;
+    }
+    GoNextSlide();
+    return;
   };
 
   const days = [
@@ -75,7 +204,7 @@ const GetStarted = () => {
 
   const months = [
     "January",
-    "Febuary",
+    "February",
     "March",
     "April",
     "May",
@@ -88,7 +217,7 @@ const GetStarted = () => {
     "December",
   ];
 
-  let currentYear = 2021;
+  let currentYear = DateTime.now().year;
 
   const years = [];
 
@@ -101,6 +230,7 @@ const GetStarted = () => {
     <GetStartedPresentation
       currentSlide={currentSlide}
       form={form}
+      errorForm={formError}
       handleChange={handleChange}
       days={days}
       months={months}
@@ -109,6 +239,9 @@ const GetStarted = () => {
       slideCount={slideCount}
       SetActiveSlide={SetActiveSlide}
       GoNextSlide={GoNextSlide}
+      ValidateDate={ValidateDate}
+      ValidateName={ValidateName}
+      ValidateLocation={ValidateLocation}
     />
   );
 };

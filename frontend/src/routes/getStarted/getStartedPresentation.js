@@ -18,7 +18,10 @@ const GetStartedPresentation = ({
   SelectDropdownItem,
   slideCount,
   SetActiveSlide,
-  GoNextSlide,
+  ValidateLocation,
+  ValidateDate,
+  errorForm,
+  ValidateName,
 }) => {
   return (
     <div className="w-screen h-screen overscroll-none bg-primary flex flex-col items-center p-10 space-y-10">
@@ -32,6 +35,7 @@ const GetStartedPresentation = ({
         {currentSlide === 0 && (
           <GetStartedContainer title="Name" key="33">
             <TextInput
+              errorMsg={errorForm.firstName}
               name="firstName"
               placeholder="First Name"
               onChange={handleChange}
@@ -40,6 +44,7 @@ const GetStartedPresentation = ({
 
             <TextInput
               name="lastName"
+              errorMsg={errorForm.lastName}
               placeholder="Last Name"
               onChange={handleChange}
               value={form.lastName}
@@ -52,6 +57,7 @@ const GetStartedPresentation = ({
             <div className="flex w-full space-x-2">
               <Dropdown
                 name="day"
+                errorMsg={errorForm.day}
                 placeholder="Day"
                 items={days}
                 SelectDropdownItem={SelectDropdownItem}
@@ -59,6 +65,7 @@ const GetStartedPresentation = ({
               />
               <Dropdown
                 name="month"
+                errorMsg={errorForm.month}
                 placeholder="Month"
                 items={months}
                 SelectDropdownItem={SelectDropdownItem}
@@ -67,11 +74,19 @@ const GetStartedPresentation = ({
             </div>
             <Dropdown
               name="year"
+              errorMsg={errorForm.year}
               placeholder="Year"
               items={years}
               SelectDropdownItem={SelectDropdownItem}
               value={form.year}
             />
+            <p
+              className={`${
+                errorForm.dateString ? "inline" : "hidden"
+              } mt-1 ml-5 text-red-500 font-nunito tracking-wider text-md`}
+            >
+              {errorForm.dateString}
+            </p>
           </GetStartedContainer>
         )}
 
@@ -79,6 +94,7 @@ const GetStartedPresentation = ({
           <GetStartedContainer title="Location" key="31">
             <Dropdown
               name="country"
+              errorMsg={errorForm.country}
               placeholder="Country"
               items={months}
               SelectDropdownItem={SelectDropdownItem}
@@ -86,6 +102,7 @@ const GetStartedPresentation = ({
             />
             <Dropdown
               name="city"
+              errorMsg={errorForm.city}
               placeholder="City"
               items={months}
               SelectDropdownItem={SelectDropdownItem}
@@ -100,12 +117,31 @@ const GetStartedPresentation = ({
         current={currentSlide}
         SetActiveSlide={SetActiveSlide}
       />
-      <Button
-        text="Next"
-        color="secondary"
-        type="border"
-        onClick={GoNextSlide}
-      />
+
+      {currentSlide === 0 && (
+        <Button
+          text="Next"
+          color="secondary"
+          type="border"
+          onClick={ValidateName}
+        />
+      )}
+      {currentSlide === 1 && (
+        <Button
+          text="Next"
+          color="secondary"
+          type="border"
+          onClick={ValidateDate}
+        />
+      )}
+      {currentSlide === 2 && (
+        <Button
+          text="Next"
+          color="secondary"
+          type="border"
+          onClick={ValidateLocation}
+        />
+      )}
     </div>
   );
 };
