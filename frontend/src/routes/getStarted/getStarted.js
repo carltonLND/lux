@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GetStartedPresentation from "./getStartedPresentation";
 import { DateTime } from "luxon";
+import { useCountries, useCities } from "../../hooks";
 
 const GetStarted = () => {
   const [slideCount, setSlideCount] = useState(3);
@@ -15,6 +16,11 @@ const GetStarted = () => {
     country: "",
     city: "",
   });
+  const countries = useCountries();
+  const cities = useCities(form.country);
+  useEffect(() => {
+    console.log(cities);
+  }, [cities, form.country]);
 
   const [formError, setFormError] = useState({
     firstName: "",
@@ -235,6 +241,8 @@ const GetStarted = () => {
       days={days}
       months={months}
       years={years}
+      countries={countries}
+      cities={cities}
       SelectDropdownItem={SelectDropdownItem}
       slideCount={slideCount}
       SetActiveSlide={SetActiveSlide}

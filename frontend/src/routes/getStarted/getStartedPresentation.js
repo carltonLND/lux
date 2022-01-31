@@ -15,6 +15,8 @@ const GetStartedPresentation = ({
   days,
   months,
   years,
+  countries,
+  cities,
   SelectDropdownItem,
   slideCount,
   SetActiveSlide,
@@ -37,6 +39,7 @@ const GetStartedPresentation = ({
             <TextInput
               errorMsg={errorForm.firstName}
               name="firstName"
+              type="text"
               placeholder="First Name"
               onChange={handleChange}
               value={form.firstName}
@@ -44,6 +47,7 @@ const GetStartedPresentation = ({
 
             <TextInput
               name="lastName"
+              type="text"
               errorMsg={errorForm.lastName}
               placeholder="Last Name"
               onChange={handleChange}
@@ -96,7 +100,8 @@ const GetStartedPresentation = ({
               name="country"
               errorMsg={errorForm.country}
               placeholder="Country"
-              items={months}
+              items={countries.countries}
+              loading={countries.loading}
               SelectDropdownItem={SelectDropdownItem}
               value={form.country}
             />
@@ -104,7 +109,8 @@ const GetStartedPresentation = ({
               name="city"
               errorMsg={errorForm.city}
               placeholder="City"
-              items={months}
+              items={cities.cities}
+              loading={cities.loading}
               SelectDropdownItem={SelectDropdownItem}
               value={form.city}
             />

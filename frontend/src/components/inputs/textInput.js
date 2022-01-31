@@ -9,7 +9,7 @@ const TextInput = ({ errorMsg, name, value, onChange, placeholder }) => {
       >
         <input
           className="bg-gray-200 w-full outline-none"
-          type="password"
+          type="text"
           name={name}
           placeholder={placeholder}
           value={value}
