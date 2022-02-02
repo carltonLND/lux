@@ -16,12 +16,15 @@ const Dropdown = ({
 
   const listItems = useRef({});
 
-  items.forEach((item) => {
-    listItems.current = {
-      ...listItems.current,
-      [item]: listItems.current[item] ?? createRef(),
-    };
-  });
+  if(items){
+    items.forEach((item) => {
+      listItems.current = {
+        ...listItems.current,
+        [item]: listItems.current[item] ?? createRef(),
+      };
+    });
+  }
+
 
   const ToggleDropdown = () => {
     setActive((prev) => !prev);
@@ -38,8 +41,6 @@ const Dropdown = ({
 
   const findItem = (char) => {
     return items.find((item) => {
-      console.log(`item 0:${item[0]}`);
-      console.log(item[0] == char);
       try {
         if (item[0].toLowerCase() == char.toLowerCase()) {
           return item;
@@ -52,9 +53,6 @@ const Dropdown = ({
 
   const HandleKeyPress = (e) => {
     const item = findItem(e.key);
-
-    console.log(`pressed key: ${e.key}`);
-    console.log(`found item: ${item}`);
     if (item) {
       listItems.current[item].current.scrollIntoView({ behavior: "smooth" });
     }

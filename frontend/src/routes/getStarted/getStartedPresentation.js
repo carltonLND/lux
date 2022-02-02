@@ -100,8 +100,8 @@ const GetStartedPresentation = ({
               name="country"
               errorMsg={errorForm.country}
               placeholder="Country"
-              items={countries.countries}
-              loading={countries.loading}
+              items={countries}
+              loading={false}
               SelectDropdownItem={SelectDropdownItem}
               value={form.country}
             />
@@ -109,8 +109,8 @@ const GetStartedPresentation = ({
               name="city"
               errorMsg={errorForm.city}
               placeholder="City"
-              items={cities.cities}
-              loading={cities.loading}
+              items={cities}
+              loading={false}
               SelectDropdownItem={SelectDropdownItem}
               value={form.city}
             />

@@ -6,10 +6,8 @@ const apiCall = async (url, method, headers, data) => {
     headers: headers || null,
     body: data || null,
   };
-  console.log(options);
   try {
     const result = await fetch(url, options);
-    console.log(result);
     return await result.json();
   } catch {
     return "error making query";
@@ -31,9 +29,9 @@ const useApiCall = (queryObject) => {
   }, []);
 
   if (!loading) {
-    return queryResults;
+    return { loading: false, data: queryResults };
   }
-  return { status: "loadings" };
+  return { loading: true,  data: null };
 };
 
 export default useApiCall;

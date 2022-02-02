@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import GetStartedPresentation from "./getStartedPresentation";
 import { DateTime } from "luxon";
-import { useCountries, useCities } from "../../hooks";
+import { useNavigate } from "react-router-dom";
+
 
 const GetStarted = () => {
   const [slideCount, setSlideCount] = useState(3);
-  const [currentSlide, setCurrentSlide] = useState(2);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const Navigate = useNavigate()
 
   const [form, setForm] = useState({
     firstName: "",
@@ -16,11 +18,9 @@ const GetStarted = () => {
     country: "",
     city: "",
   });
-  const countries = useCountries();
-  const cities = useCities(form.country);
-  useEffect(() => {
-    console.log(cities);
-  }, [cities, form.country]);
+  const countries = ["Argentina", "Ethophia", "United Kingdom"];
+  const cities =  ["London", "Paris", "Rome", "Vienna"]
+
 
   const [formError, setFormError] = useState({
     firstName: "",
@@ -54,17 +54,11 @@ const GetStarted = () => {
     setCurrentSlide(index);
   };
 
-  const GoNextSlide = () => {
-    if (currentSlide + 1 === slideCount) {
-      SubmitForm();
-      return;
-    }
-    SetActiveSlide(currentSlide + 1);
-  };
 
   const SubmitForm = () => {
-    setCurrentSlide(0);
+    
   };
+  
   const CheckForRequired = (fields) => {
     let errorFound = false;
     let tempErrors = {
@@ -79,7 +73,6 @@ const GetStarted = () => {
     };
     fields.forEach((field) => {
       if (form[field] === "") {
-        console.log(`error found: ${field}`);
         tempErrors = { ...tempErrors, [field]: "Required" };
         errorFound = true;
       }
@@ -141,7 +134,6 @@ const GetStarted = () => {
       city: "",
       dateString: "",
     });
-    console.log("Form reset");
     const fields = ["day", "month", "year"];
     if (CheckForRequired(fields)) {
       return;
@@ -172,6 +164,55 @@ const GetStarted = () => {
     }
     GoNextSlide();
     return;
+  };
+
+  const FinalValidationCheck = () => {
+    setFormError({
+      firstName: "",
+      lastName: "",
+      day: "",
+      month: "",
+      year: "",
+      country: "",
+      city: "",
+      dateString: "",
+    });
+    let fields = ["firstName", "lastName"];
+    if (CheckForRequired(fields)) {
+      setCurrentSlide(0)
+      console.log(`required: ${fields}`)
+      return false;
+    }
+    fields = ["day", "month", "year"];
+    if (CheckForRequired(fields)) {
+      setCurrentSlide(1)
+      return false;
+    }
+    if (CheckDateString()) {
+      setCurrentSlide(1)
+      return false;
+    }
+    if (CheckIfEighteen()) {
+      setCurrentSlide(1)
+      return false;
+    }
+    fields = ["country", "city"];
+    if (CheckForRequired(fields)) {
+      setCurrentSlide(2)
+      return false;
+    }
+    return true
+  }
+
+  const GoNextSlide = () => {
+    if (currentSlide + 1 === slideCount) {
+      if(FinalValidationCheck()){
+        SubmitForm();
+        Navigate("/home")
+      }
+      return;
+    }
+    SetActiveSlide(currentSlide + 1);
   };
 
   const days = [
@@ -222,6 +263,9 @@ const GetStarted = () => {
     "November",
     "December",
   ];
+
+
+
 
   let currentYear = DateTime.now().year;
 
