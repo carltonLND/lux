@@ -32,7 +32,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors({ origin: "https://lux.midasdesign.co.uk" }));
+app.use(cors({ origin: "https://lux.midasdesign.co.uk" })); // Needs to be updated
 
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
