@@ -21,6 +21,6 @@ resource "aws_s3_bucket_website_configuration" "static-site" {
 
 resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
   bucket = aws_s3_bucket.static-site.bucket
-  policy = templatefile("bucket_policy.tftpl", {bucket_arn = aws_s3_bucket.static-site.arn, oai_id = aws_cloudfront_origin_access_identity.OAI.id})
+  policy = templatefile("frontend.bucket_policy.tftpl", {bucket_arn = aws_s3_bucket.static-site.arn, oai_id = aws_cloudfront_origin_access_identity.OAI.id})
 
 }
