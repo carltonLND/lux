@@ -1,5 +1,5 @@
 resource "aws_db_instance" "rds" {
-  identifier = "${var.project}db"
+  identifier = "${var.project_name}db"
   allocated_storage    = 10
   engine               = "mysql"
   engine_version       = "5.7"
@@ -11,4 +11,10 @@ resource "aws_db_instance" "rds" {
   skip_final_snapshot  = true
   db_subnet_group_name = aws_db_subnet_group.private.name
   vpc_security_group_ids = [aws_security_group.db.id]
+
+  tags = local.tags
+}
+
+output "db_endpoint" {
+  value = aws_db_instance.rds.endpoint
 }
