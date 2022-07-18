@@ -1,0 +1,47 @@
+---
+- name: bootstrap api server
+  hosts: localhost
+  become: true
+  connection: local
+  vars:
+    repo: https://github.com/carltonLND/lux
+    destFolder: /tmp/www/lux
+
+  tasks:
+    - name: add nodejs repo
+      shell: curl --silent --location https://rpm.nodesource.com/setup_16.x | sudo bash -
+
+    - name: install applications
+      yum:
+        name: [git, nodejs]
+        state: latest
+
+    - name: clone app repo
+      git:
+        repo: "{{ repo }}"
+        dest: "{{ destFolder }}"
+
+    - name: install api packages
+      npm:
+        path: "{{ destFolder }}/backend"
+
+    - name: install sqllite npm package
+      npm:
+        name: sqlite3
+        path: "{{ destFolder }}"
+
+    - name: move service file to systemd folder
+      command: sudo cp /tmp/luxapi.service /etc/systemd/system/
+
+    - name: reload systemctl
+      command: systemctl daemon-reload
+
+    - name: start lux api service
+      service:
+        name: luxapi
+        state: started
+
+    - name: enable lux api service
+      service:
+        name: luxapi
+        enabled: yes

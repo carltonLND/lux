@@ -1,9 +1,5 @@
-data "aws_route53_zone" "main_domain" {
-  name         = var.domain_name
-  private_zone = false
-}
 
-resource "aws_route53_record" "a_record" {
+resource "aws_route53_record" "frontend_alias" {
     zone_id = data.aws_route53_zone.main_domain.zone_id
     name  = "${var.a_record_name}.${var.domain_name}"
     type  = "A"
