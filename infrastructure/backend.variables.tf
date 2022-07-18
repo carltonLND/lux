@@ -27,3 +27,17 @@ variable "key_name" {
   type = string
   default = "lux-api"
 }
+
+variable "db_username" {
+  type = string
+  default = "root"
+}
+
+variable "db_password" {
+  type = string
+  default = "Passw0rd1"
+}
+variable "db_database_name" {
+  type = string
+  default = "lux"
+}

@@ -1,6 +1,6 @@
 resource "aws_security_group" "api" {
   name        = "api_sg"
-  description = "Allow https inbound traffic"
+  description = "Allow api port inbound traffic"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -19,9 +19,9 @@ resource "aws_security_group" "api" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "allow_net_to_api"
-  }
+  })
 }
 
 resource "aws_security_group" "db" {
@@ -30,7 +30,7 @@ resource "aws_security_group" "db" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description      = "api from internet"
+    description      = "mysql data port from api"
     from_port        = 3306
     to_port          = 3306
     protocol         = "tcp"
@@ -45,7 +45,7 @@ resource "aws_security_group" "db" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "allow_api_to_db"
-  }
+  })
 }

@@ -1,12 +1,12 @@
 resource "aws_db_instance" "rds" {
-  identifier = "luxdb"
+  identifier = "${var.project}db"
   allocated_storage    = 10
   engine               = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t3.micro"
-  username             = "foo"
-  password             = "foobarbaz"
-  db_name              = "lux"
+  username             = var.db_username
+  password             = var.db_password
+  db_name              = var.db_database_name
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
   db_subnet_group_name = aws_db_subnet_group.private.name
