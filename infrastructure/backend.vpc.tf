@@ -1,10 +1,10 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
-  tags = local.tags
+  tags       = local.tags
 }
 
-resource "aws_internet_gateway" "main" {    
-  vpc_id =  aws_vpc.main.id 
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
 }
 
 resource "aws_route" "internet_access" {

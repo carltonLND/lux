@@ -14,7 +14,7 @@ resource "aws_iam_role" "ssm" {
         Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
-        }        
+        }
       },
 
     ]

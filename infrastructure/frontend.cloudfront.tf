@@ -12,13 +12,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  aliases = [ "${var.a_record_name}.${var.domain_name}"]
-  
+  aliases = ["${var.a_record_name}.${var.domain_name}"]
+
   enabled             = true
   is_ipv6_enabled     = false
   comment             = "CDN for ${var.project_name}"
   default_root_object = "index.html"
-  price_class = "PriceClass_100"
+  price_class         = "PriceClass_100"
 
 
 
@@ -46,24 +46,24 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  dynamic "custom_error_response"{
+  dynamic "custom_error_response" {
     for_each = toset([403, 404])
 
-    content{
-      response_code = 200
-      error_code = custom_error_response.value
-      response_page_path = "/index.html"
+    content {
+      response_code         = 200
+      error_code            = custom_error_response.value
+      response_page_path    = "/index.html"
       error_caching_min_ttl = 10
     }
   }
 
   viewer_certificate {
     cloudfront_default_certificate = true
-    acm_certificate_arn = aws_acm_certificate.ssl.arn
-    ssl_support_method = "sni-only"
+    acm_certificate_arn            = aws_acm_certificate.ssl.arn
+    ssl_support_method             = "sni-only"
   }
-  
-  
+
+
 
   tags = local.tags
 }

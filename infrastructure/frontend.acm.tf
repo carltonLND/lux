@@ -1,7 +1,7 @@
 resource "aws_acm_certificate" "ssl" {
-  domain_name       = var.domain_name
-  subject_alternative_names = [ "*.${var.domain_name}" ]
-  validation_method = "DNS"
+  domain_name               = var.domain_name
+  subject_alternative_names = ["*.${var.domain_name}"]
+  validation_method         = "DNS"
 
   tags = local.tags
 
@@ -32,5 +32,5 @@ resource "aws_route53_record" "ssl" {
 resource "aws_acm_certificate_validation" "ssl" {
   certificate_arn         = aws_acm_certificate.ssl.arn
   validation_record_fqdns = [for record in aws_route53_record.ssl : record.fqdn]
-  provider = aws.us-east
+  provider                = aws.us-east
 }

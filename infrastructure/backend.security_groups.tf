@@ -4,11 +4,11 @@ resource "aws_security_group" "api" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description      = "api from internet"
-    from_port        = 5000
-    to_port          = 5000
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "api from internet"
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -30,10 +30,10 @@ resource "aws_security_group" "db" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description      = "mysql data port from api"
-    from_port        = 3306
-    to_port          = 3306
-    protocol         = "tcp"
+    description     = "mysql data port from api"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
     security_groups = [aws_security_group.api.id]
   }
 
