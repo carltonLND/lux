@@ -62,8 +62,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     acm_certificate_arn            = aws_acm_certificate.ssl.arn
     ssl_support_method             = "sni-only"
   }
-
-
-
   tags = local.tags
+
+  depends_on = [
+    aws_acm_certificate_validation.ssl,
+    aws_acm_certificate.ssl
+  ]
 }
