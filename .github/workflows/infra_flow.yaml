@@ -15,4 +15,4 @@ jobs:
       - name: Initailise infrastructure folder
         run: terraform -chdir=./infrastructure init
       - name: Create terraform plan
-        run: run terraform -chdir=./infrastructure plan
+        run: terraform -chdir=./infrastructure plan
