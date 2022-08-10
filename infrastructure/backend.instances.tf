@@ -10,6 +10,10 @@ resource "aws_instance" "api" {
   {
     name = "${var.project_name}-${var.environment}-api-srv"
   })
+
+  depends_on = [
+    aws_db_instance.rds
+  ]
 }
 
 resource "aws_key_pair" "api" {
