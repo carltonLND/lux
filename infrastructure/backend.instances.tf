@@ -18,7 +18,7 @@ resource "aws_instance" "api" {
 
 resource "aws_key_pair" "api" {
   key_name   = "api-key"
-  public_key = file("~/.ssh/${var.key_name}.pub")
+  public_key = local.public_key
 }
 
 output "instance_ip" {
