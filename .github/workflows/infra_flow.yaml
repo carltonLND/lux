@@ -19,4 +19,4 @@ jobs:
       - name: Create terraform plan
         run: terraform -chdir=./infrastructure plan -no-color -input=false -out "./infra_build.tfplan"
       - name: Apply terraform plan
-        run: terraform apply ./infrastructure/infra_build.tfplan --auto-approve
+        run: terraform apply ./infrastructure/infra_build.tfplan
