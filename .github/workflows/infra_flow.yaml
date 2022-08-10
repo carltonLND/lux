@@ -9,4 +9,4 @@ jobs:
         run: cd infrastructure
       - uses: hashicorp/setup-terraform@v2
       - name: Install Composer Dependencies
-        run: terraform init
+        run: terraform -chdir=./infrastructure init
