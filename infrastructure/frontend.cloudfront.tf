@@ -12,12 +12,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  aliases = [ "lux.delta-a-sierra.co.uk" ]
-  
+  aliases = ["${var.a_record_name}.${var.domain_name}"]
+
   enabled             = true
   is_ipv6_enabled     = false
   comment             = "CDN for ${var.project_name}"
   default_root_object = "index.html"
+  price_class         = "PriceClass_100"
+
 
 
   default_cache_behavior {
@@ -25,6 +27,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.s3_origin_id
 
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
     forwarded_values {
       query_string = false
 
@@ -32,15 +38,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
         forward = "none"
       }
     }
-
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
   }
-
-  price_class = "PriceClass_100"
-
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
@@ -48,11 +46,26 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
+  dynamic "custom_error_response" {
+    for_each = toset([403, 404])
+
+    content {
+      response_code         = 200
+      error_code            = custom_error_response.value
+      response_page_path    = "/index.html"
+      error_caching_min_ttl = 10
+    }
+  }
+
   viewer_certificate {
     cloudfront_default_certificate = true
-    acm_certificate_arn = aws_acm_certificate.ssl.arn
-    ssl_support_method = "sni-only"
+    acm_certificate_arn            = aws_acm_certificate.ssl.arn
+    ssl_support_method             = "sni-only"
   }
- 
   tags = local.tags
+
+  depends_on = [
+    aws_acm_certificate_validation.ssl,
+    aws_acm_certificate.ssl
+  ]
 }

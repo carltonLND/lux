@@ -10,17 +10,8 @@ resource "aws_s3_bucket_acl" "public-read" {
   acl    = "public-read"
 }
 
-resource "aws_s3_bucket_website_configuration" "static-site" {
-  bucket = aws_s3_bucket.static-site.bucket
-
-  index_document {
-    suffix = "index.html"
-  }
-
-}
-
 resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
   bucket = aws_s3_bucket.static-site.bucket
-  policy = templatefile("frontend.bucket_policy.tftpl", {bucket_arn = aws_s3_bucket.static-site.arn, oai_id = aws_cloudfront_origin_access_identity.OAI.id})
+  policy = templatefile("frontend.bucket_policy.tftpl", { bucket_arn = aws_s3_bucket.static-site.arn, oai_id = aws_cloudfront_origin_access_identity.OAI.id })
 
 }
