@@ -9,13 +9,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v1
-      # - name: Configure AWS Credentials 🔧
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: test aws cli conntention
         run: aws sts get-caller-identity
       - uses: hashicorp/setup-terraform@v2
-      - name: Install Composer Dependencies
+      - name: Initailise infrastructure folder
         run: terraform -chdir=./infrastructure init
+      - name: run terraform -chdir=./infrastructure plan
