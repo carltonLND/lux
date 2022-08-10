@@ -7,4 +7,6 @@ locals {
     Project     = var.project_name
     Environment = var.environment
   }
+
+  public_key = var.public_key == "" ? file("~/.ssh/${var.key_name}.pub") : var.public_key
 }
