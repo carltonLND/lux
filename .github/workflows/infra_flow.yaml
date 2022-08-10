@@ -16,9 +16,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       - name: Initailise infrastructure folder
         run: terraform -chdir=./infrastructure init
-      - name: set current date var
-        run: d=$(date +%Y-%m-%d)
       - name: Create terraform plan
-        run: terraform -chdir=./infrastructure plan -no-color -input=false -out "./infra_build_$d.tfplan"
-      - name: list infra folder
-        run: ls -al ./infrastructure
+        run: terraform -chdir=./infrastructure plan -no-color -input=false -out "./infra_build.tfplan"
+      - name: Apply terraform plan
+        run: terraform apply ./infrastructure/infra_build.tfplan --auto-approve
