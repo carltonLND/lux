@@ -17,7 +17,9 @@ jobs:
       - name: Initailise infrastructure folder
         run: terraform -chdir=./infrastructure init
       - name: Terraform apply
-        run: terraform apply -chdir=./infrastructure --auto-approve
+        run: |
+          cd ./infrastructure 
+          terraform apply --auto-approve
       # - name: Create terraform plan
       #   run: terraform -chdir=./infrastructure plan -no-color -input=false -out "./infra_build.tfplan"
       # - name: Apply terraform plan
