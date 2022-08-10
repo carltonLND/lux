@@ -14,4 +14,5 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       - name: Initailise infrastructure folder
         run: terraform -chdir=./infrastructure init
-      - name: run terraform -chdir=./infrastructure plan
+      - name: Create terraform plan
+        run: run terraform -chdir=./infrastructure plan
