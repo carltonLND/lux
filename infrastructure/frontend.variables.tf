@@ -20,6 +20,11 @@ variable "environment" {
   type    = string
   default = "dev"
 }
-variable "domain_name" {
 
+variable "public_key" {
+  type = string
+  default = ""
 }
+variable "domain_name" {
+}
+
