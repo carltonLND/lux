@@ -70,4 +70,4 @@ jobs:
       - name: change ssh file permissions
         run: sudo chmod 600 ~/.ssh/lux-api
       - name: sync files to api server
-        run: rsync -av -e "ssh -i ~/.ssh/lux-api"  ./backend/ ec2-user@lux-api.delta-a-sierra.co.uk:~/www/lux/backend
+        run: rsync -av -e "ssh -i ~/.ssh/lux-api -o 'StrictHostKeyChecking no' "  ./backend/ ec2-user@lux-api.delta-a-sierra.co.uk:~/www/lux/backend
