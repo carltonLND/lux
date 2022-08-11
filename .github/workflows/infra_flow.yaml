@@ -34,11 +34,12 @@ jobs:
           path: ./infrastructure/tf_outputs.json
 
   setup_backend_env:
+    needs: terraform
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: install jq
-        run: sudo apt-get -y jq
+        run: sudo apt-get install -y jq
       - uses: actions/download-artifact@v3
         with:
           name: tf_outputs
@@ -54,6 +55,7 @@ jobs:
           path: .env
 
   deploy_api:
+    needs: [terraform, setup_backend_env]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
