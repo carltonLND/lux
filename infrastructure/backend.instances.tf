@@ -21,6 +21,11 @@ resource "aws_key_pair" "api" {
   public_key = local.public_key
 }
 
+resource "aws_eip" "api-ip" {
+  instance = aws_instance.api.id
+  vpc      = true
+}
+
 output "instance_ip" {
   value = aws_instance.api.public_ip
 }

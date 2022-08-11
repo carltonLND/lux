@@ -1,3 +1,12 @@
 {
-  "name": "dwayne"
+  "db_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "luxdb.cvxjbwmlkkkg.eu-west-2.rds.amazonaws.com:3306"
+  },
+  "instance_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "35.177.161.66"
+  }
 }

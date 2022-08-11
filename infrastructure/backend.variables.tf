@@ -15,7 +15,7 @@ variable "private_cidr" {
 
 variable "api_ami" {
   type    = string
-  default = "ami-0d9a5565277a55d5d"
+  default = "ami-0848d77270c1c6679"
 }
 
 variable "my_ip" {
