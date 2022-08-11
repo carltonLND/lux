@@ -72,3 +72,5 @@ jobs:
         run: sudo chmod 600 ~/.ssh/lux-api
       - name: sync files to api server
         run: rsync -av -e "ssh -i ~/.ssh/lux-api -o 'StrictHostKeyChecking no' "  ./backend/ ec2-user@lux-api.delta-a-sierra.co.uk:~/www/lux/backend
+      - name: npm install and start luxapi service
+        run: ssh -i ~/.ssh/lux-api -o 'StrictHostKeyChecking no' ec2-user@lux-api.delta-a-sierra.co.uk "cd ~/www/lux/backend; npm install; sudo systemctl stop luxapi; sudo systemctl start luxapi"
