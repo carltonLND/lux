@@ -62,5 +62,9 @@ jobs:
           name: backend_env
       - name: add content to .env
         run: mv -f .env ./backend/.env
+      - name: setup ssh key
+        run: |
+          echo ${{ secrets.ssh_key}} > ~/.ssh/lux-api
+          sudo chmod 600 ~/.ssh/lux-api
       - name: sync files to api server
-        run: sync -av -e "ssh -i ~/.ssh/lux-api"  ./backend/ ec2-user@lux-api.delta-a-sierra.co.uk:~/www/lux/backend
+        run: rsync -av -e "ssh -i ~/.ssh/lux-api"  ./backend/ ec2-user@lux-api.delta-a-sierra.co.uk:~/www/lux/backend
