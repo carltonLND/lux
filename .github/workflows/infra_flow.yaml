@@ -25,9 +25,7 @@ jobs:
           cd ./infrastructure 
           terraform apply --auto-approve
       - name: export terraform output
-        run: |
-          cd ./infrastructure 
-          terraform output -json > terraform output -json > tf_outputs.json
+        run: terraform output -json > tf_outputs.json
       - uses: actions/upload-artifact@master
         with:
           name: tf_outputs
