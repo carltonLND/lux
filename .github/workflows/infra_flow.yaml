@@ -64,6 +64,7 @@ jobs:
         run: mv -f .env ./backend/.env
       - name: setup ssh key
         run: |
+          mkdir -p ~/.ssh/
           touch ~/.ssh/lux-api
           echo "${{ secrets.ssh_key}}" > ~/.ssh/lux-api
       - name: change ssh file permissions
