@@ -22,7 +22,7 @@ variable "environment" {
 }
 
 variable "public_key" {
-  type = string
+  type    = string
   default = ""
 }
 variable "domain_name" {

@@ -7,9 +7,12 @@ jobs:
       AWS_DEFAULT_REGION: "eu-west-2"
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      TF_VAR_public_key: ${{ secrets.public_key}}
+      TF_VAR_public_key: ${{ secrets.public_key }}
       TF_VAR_domain_name: ${{ secrets.TF_VAR_DOMAIN_NAME }}
-      TF_VAR_bucket_name: ${{secrets.bucket_name}}
+      TF_VAR_bucket_name: ${{ secrets.bucket_name }}
+      TF_VAR_db_username: ${{ secrets.db_username }}
+      TF_VAR_db_password: ${{ secrets.db_password }}
+      TF_VAR_db_database_name: ${{ secrets.db_database_name }}
     steps:
       - uses: actions/checkout@v1
       - name: test aws cli conntention
@@ -21,7 +24,7 @@ jobs:
         run: |
           cd ./infrastructure 
           terraform apply --auto-approve
-      # - name: Create terraform plan
-      #   run: terraform -chdir=./infrastructure plan -no-color -input=false -out "./infra_build.tfplan"
-      # - name: Apply terraform plan
-      #   run: terraform apply ./infrastructure/infra_build.tfplan
+      - name: export terraform output
+        run: |
+          cd ./infrastructure 
+          terraform output -json > terraform output -json > tf_outputs.json

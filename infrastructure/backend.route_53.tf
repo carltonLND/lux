@@ -10,6 +10,6 @@ resource "aws_route53_record" "db-cname" {
   zone_id = data.aws_route53_zone.main_domain.zone_id
   name    = local.db_cname
   type    = "CNAME"
-  records = [(split(":",aws_db_instance.rds.endpoint))[0] ]
+  records = [(split(":", aws_db_instance.rds.endpoint))[0]]
   ttl     = "300"
 }
