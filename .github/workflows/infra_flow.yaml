@@ -92,6 +92,8 @@ jobs:
           cd ./frontend
           npm install
       - name: build package
-        run: npm run build
+        run: |
+          cd ./frontend
+          npm run build
       - name: deploy to s3
-        run: aws s3 sync ./build s3://${{ secrets.bucket_name }}
+        run: aws s3 sync ./frontend/build s3://${{ secrets.bucket_name }}
