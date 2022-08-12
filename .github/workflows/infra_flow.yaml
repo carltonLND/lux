@@ -87,6 +87,8 @@ jobs:
       - name: test aws cli conntention
         run: aws sts get-caller-identity
       - uses: actions/setup-node@v3
+        with:
+          node-version: 18.5.0
       - name: install npm depencies
         run: |
           cd ./frontend
