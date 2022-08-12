@@ -79,6 +79,7 @@ jobs:
     needs: [terraform, setup_backend_env, deploy_api]
     runs-on: ubuntu-latest
     env:
+      CI: false
       AWS_DEFAULT_REGION: "eu-west-2"
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -87,10 +88,6 @@ jobs:
       - name: test aws cli conntention
         run: aws sts get-caller-identity
       - uses: actions/setup-node@v3
-        with:
-          node-version: 18.5.0
-      - name: set NODE_OPTIONS
-        run: export NODE_OPTIONS=--openssl-legacy-provider
       - name: install npm depencies
         run: |
           cd ./frontend
