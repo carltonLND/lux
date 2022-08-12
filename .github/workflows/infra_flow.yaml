@@ -74,3 +74,24 @@ jobs:
         run: rsync -av -e "ssh -i ~/.ssh/lux-api -o 'StrictHostKeyChecking no' "  ./backend/ ec2-user@lux-api.delta-a-sierra.co.uk:~/www/lux/backend
       - name: npm install and start luxapi service
         run: ssh -i ~/.ssh/lux-api -o 'StrictHostKeyChecking no' ec2-user@lux-api.delta-a-sierra.co.uk "cd ~/www/lux/backend; npm install; sudo systemctl stop luxapi; sudo systemctl start luxapi"
+
+  deploy_frontend:
+    needs: [terraform, setup_backend_env, deploy_api]
+    runs-on: ubuntu-latest
+    env:
+      AWS_DEFAULT_REGION: "eu-west-2"
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: test aws cli conntention
+        run: aws sts get-caller-identity
+      - uses: actions/setup-node@v3
+      - name: install npm depencies
+        run: |
+          cd ./frontend
+          npm install
+      - name: build package
+        run: npm run build
+      - name: deploy to s3
+        run: aws s3 sync ./build s3://${{ secrets.bucket_name }}
