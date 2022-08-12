@@ -87,8 +87,10 @@ jobs:
       - name: test aws cli conntention
         run: aws sts get-caller-identity
       - uses: actions/setup-node@v3
-      - name: print node version
-        run: node -v
+        with:
+          node-version: 18.5.0
+      - name: set NODE_OPTIONS
+        run: export NODE_OPTIONS=--openssl-legacy-provider
       - name: install npm depencies
         run: |
           cd ./frontend
